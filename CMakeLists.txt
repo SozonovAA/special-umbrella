@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(PROG_NAME myprg)
-
-project(${PROG_NAME}
+project(myprg
     VERSION 1.0.0
     DESCRIPTION "Template for C++ project with CMake"
     LANGUAGES CXX)
+
+
 
 #--------------------------------------------------------------
 # submodule section
@@ -13,7 +13,6 @@ project(${PROG_NAME}
 # old versions of git(that don't download submodule
 # contents automatically).
 #--------------------------------------------------------------
-# [[[
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
   if(GIT_SUBMODULE)
@@ -29,26 +28,52 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     endif()
   endif()
 endif()
-
-# ]]]
 #
+#----------------------------------------------------
+#use some lib
 
+
+option(USE_SOME_LIB "A simple lib for smth" OFF)
+
+if(USE_SOME_LIB)
+    message("USE_SOME_LIB")
+#    add_subdirectory(some_lib_subdir)
+
+    list(APPEND EXTRA_INCLUDE_DIRS "some_lib")
+    list(APPEND EXTRA_LIB_DIRS "some_lib")
+    list(APPEND EXTRA_LINKS some_lib)
+endif()
+configure_file(src/config/MyPrgConfig.h.in src/config/MyPrgConfig.h @ONLY)
 
 include(GNUInstallDirs)
 
-set(    main_source
-        src/main.cpp)
-
+list(APPEND     main_source
+                src/main.cpp)
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${main_source})
 
-set(    src_sources
-        src/include/inc.h
-        src/sources/inc.cpp)
+list(APPEND     src_sources
+                src/include/inc.h
+                src/sources/inc.cpp)
 
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${src_sources})
 
-add_executable(${PROG_NAME}
+add_executable(${PROJECT_NAME}
                ${main_source}
-               ${src_sources})
+               ${src_sources}
+               )
+
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${PROJECT_BINARY_DIR}
+           ${EXTRA_INCLUDE_DIRS})
+target_link_directories(${PROJECT_NAME} PUBLIC
+    ${EXTRA_LIB_DIRS})
+
+target_link_libraries(${PROJECT_NAME}
+    ${EXTRA_LINKS})
+
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+
+
 
 
