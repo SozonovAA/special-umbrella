@@ -74,6 +74,10 @@ target_link_libraries(${PROJECT_NAME}
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 
-
+include(InstallRequiredSystemLibraries)
+#set(CPACK_RESOURCE_FILE_LICENSE )
+set(CPACK_PACKAGING_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGING_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+include(CPack)
 
 
