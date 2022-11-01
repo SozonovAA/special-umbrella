@@ -32,7 +32,9 @@ endif()
 #----------------------------------------------------
 #use some lib
 
-
+# MYLIB_SHARED_LIBS option (undefined by default) can be used to force shared/static build
+option(MYPRG_BUILD_TESTS "Build mylib tests" ON)
+option(MYPRG_BUILD_EXAMPLES "Build mylib examples" OFF)
 option(USE_SOME_LIB "A simple lib for smth" OFF)
 
 if(USE_SOME_LIB)
@@ -80,4 +82,11 @@ set(CPACK_PACKAGING_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGING_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 include(CPack)
 
+if(MYPRG_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
 
+if(MYPRG_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()

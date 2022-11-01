@@ -2,4 +2,5 @@
 
 cmake -S . -B out/build
 cd ./out/build
-cpack
+cmake --build .
+ctest
