@@ -34,7 +34,7 @@ endif()
 
 # MYLIB_SHARED_LIBS option (undefined by default) can be used to force shared/static build
 option(MYPRG_BUILD_TESTS "Build mylib tests" ON)
-option(MYPRG_BUILD_EXAMPLES "Build mylib examples" OFF)
+option(MYPRG_BUILD_EXAMPLES "Build mylib examples" ON)
 option(USE_SOME_LIB "A simple lib for smth" OFF)
 
 if(USE_SOME_LIB)
