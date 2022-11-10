@@ -1,7 +1,7 @@
 # special-umbrella
 # Template repo for create C++ application.
 
-After coping of this repo you need to reinit your gir repo. 
+After copying of this repo you need to reinit your git repo. 
 You can do it on Linux just using git_reinit.sh file:
 ```
 ./git_reinit.sh
