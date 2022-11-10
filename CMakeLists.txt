@@ -32,18 +32,17 @@ endif()
 #----------------------------------------------------
 #use some lib
 
-# MYLIB_SHARED_LIBS option (undefined by default) can be used to force shared/static build
+
 option(MYPRG_BUILD_TESTS "Build mylib tests" ON)
 option(MYPRG_BUILD_EXAMPLES "Build mylib examples" ON)
 option(USE_SOME_LIB "A simple lib for smth" OFF)
 
 if(USE_SOME_LIB)
     message("USE_SOME_LIB")
-#    add_subdirectory(some_lib_subdir)
 
     list(APPEND EXTRA_INCLUDE_DIRS "some_lib")
     list(APPEND EXTRA_LIB_DIRS "some_lib")
-    list(APPEND EXTRA_LINKS some_lib)
+    list(APPEND EXTRA_LINKS pqxx)
 endif()
 configure_file(src/config/MyPrgConfig.h.in src/config/MyPrgConfig.h @ONLY)
 

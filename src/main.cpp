@@ -2,7 +2,7 @@
 #include <iostream>
 #include "include/inc.h"
 #ifdef USE_SOME_LIB
-    #include <somelib_dir.h>
+//    #include <>
 #endif
 
 int main(){
