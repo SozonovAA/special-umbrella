@@ -35,6 +35,7 @@ endif()
 
 option(MYPRG_BUILD_TESTS "Build mylib tests" ON)
 option(MYPRG_BUILD_EXAMPLES "Build mylib examples" ON)
+option(USE_BOOST_LIB "Include and link boost lib to your project" ON)
 option(USE_SOME_LIB "A simple lib for smth" OFF)
 
 if(USE_SOME_LIB)
@@ -44,6 +45,27 @@ if(USE_SOME_LIB)
     list(APPEND EXTRA_LIB_DIRS "some_lib")
     list(APPEND EXTRA_LINKS pqxx)
 endif()
+
+if(USE_BOOST_LIB)
+    set(Boost_USE_STATIC_LIBS ON)
+    add_definitions(-DBOOST_PYTHON_STATIC_LIB)
+    set(Boost_USE_MULTITHREADED ON)
+
+    find_package( Boost 1.74 COMPONENTS program_options REQUIRED )
+    message(STATUS "Boost version: ${Boost_VERSION}")
+    if(Boost_FOUND)
+        list(APPEND EXTRA_INCLUDE_DIRS
+            ${Boost_INCLUDE_DIR} )
+
+        list(APPEND EXTRA_LINKS
+            ${Boost_LIBRARIES} )
+    else()
+        message(BOOST NOT FOUND)
+    endif()
+endif()
+#----------------------------------------------------
+
+
 configure_file(src/config/MyPrgConfig.h.in src/config/MyPrgConfig.h @ONLY)
 
 include(GNUInstallDirs)
