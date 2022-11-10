@@ -4,8 +4,10 @@
 After coping of this repo you need to reinit your gir repo. 
 You can do it on Linux just using git_reinit.sh file:
 ```
-sudo ./git_reinit.sh
+./git_reinit.sh
 ```
+In some cases you will need to press Enter some times.
+
 After this your pure project is in 'prog' folder.
 
 
